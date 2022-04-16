@@ -5,5 +5,5 @@ exito = 1
 
 while exito:
     exito,imagen = objeto_video.read()
-    print(imagen)
+    print(len(imagen),len(imagen[0]))
     print()
