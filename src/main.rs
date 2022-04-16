@@ -7,7 +7,10 @@ use viuer::{Config,print};
 
 fn main() {
     let servidor = TcpListener::bind("127.0.0.1:3000").unwrap();
-    std::process::Command::new("python").arg("nucleo_optico.py");
+    std::thread::spawn(move ||{
+        let proceso = std::process::Command::new("python").arg("nucleo_optico.py").status();
+        println!("PROCESO: {:?}",proceso);
+    });
     for stream in servidor.incoming(){
         std::thread::spawn(move ||{
             let mut stream = stream.unwrap();
@@ -15,8 +18,8 @@ fn main() {
             stream.read_to_end(&mut buffer).unwrap();
 
             let config = Config{
-                width: Some(70),
-                height: Some(50),
+                width: Some(100),
+                height: Some(30),
                 x:0,
                 y:0,
                 ..Default::default()
