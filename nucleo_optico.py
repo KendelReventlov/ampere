@@ -7,10 +7,11 @@ objeto_video.set(cv2.CAP_PROP_FRAME_HEIGHT,480)
 exito = 1
 
 while exito:
-    conexion = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    conexion.connect(("127.0.0.1",3000))
     exito,imagen = objeto_video.read()
     bytes = cv2.imencode(".png",imagen)[1].tobytes()
+    conexion = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    conexion.connect(("127.0.0.1",3000))
+    print(len(bytes))
     conexion.send(bytes)
     conexion.close()
     
