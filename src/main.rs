@@ -6,7 +6,7 @@ use std::io::prelude::*;
 fn main() {
     let servidor = TcpListener::bind("127.0.0.1:3000").unwrap();
     std::thread::spawn(move ||{
-        let proceso = std::process::Command::new("python").arg("nucleo_optico.py").status().unwrap();
+        let proceso = std::process::Command::new("python").arg("nucleo_optico.py").status();
         println!("PROCESO: {:?}",proceso);
     });
     for stream in servidor.incoming(){
